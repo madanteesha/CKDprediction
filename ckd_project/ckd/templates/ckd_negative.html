@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<body><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chronic Kidney Disease Prediction Result</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .result-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-width: 600px;
+            width: 100%;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #8e44ad, #9b59b6);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .content {
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .prediction-label {
+            font-size: 1.2rem;
+            color: #6c757d;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .prediction-result {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #28a745;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .celebration-image {
+            width: 100%;
+            max-width: 400px;
+            height: 250px;
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .celebration-text {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #8e44ad;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+            position: relative;
+        }
+
+        .minion-characters {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            z-index: 1;
+        }
+
+        .minion {
+            width: 60px;
+            height: 80px;
+            background: #ffeb3b;
+            border-radius: 30px 30px 15px 15px;
+            position: relative;
+            animation: bounce 2s infinite;
+        }
+
+Oreva Kami, [03-08-2025 20:29]
+.minion:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .minion:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .minion::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 35px;
+            height: 20px;
+            background: #2196f3;
+            border-radius: 10px;
+        }
+
+        .minion::after {
+            content: '😊';
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 16px;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ff6b6b;
+            animation: confetti-fall 3s infinite linear;
+        }
+
+        .confetti:nth-child(1) { left: 10%; background: #ff6b6b; animation-delay: 0s; }
+        .confetti:nth-child(2) { left: 30%; background: #4ecdc4; animation-delay: 0.5s; }
+        .confetti:nth-child(3) { left: 50%; background: #45b7d1; animation-delay: 1s; }
+        .confetti:nth-child(4) { left: 70%; background: #f9ca24; animation-delay: 1.5s; }
+        .confetti:nth-child(5) { left: 90%; background: #6c5ce7; animation-delay: 2s; }
+
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(300px) rotate(360deg); opacity: 0; }
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #8e44ad, #9b59b6);
+            color: white;
+            box-shadow: 0 4px 15px rgba(142, 68, 173, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(142, 68, 173, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+        }
+
+        .health-tip {
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            border-left: 4px solid #8e44ad;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 0 10px 10px 0;
+            text-align: left;
+        }
+
+        .health-tip h3 {
+            color: #8e44ad;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .health-tip p {
+            color: #555;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .celebration-text {
+                font-size: 2rem;
+            }
+            
+            .prediction-result {
+                font-size: 1.5rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 200px;
+            }
+
+Oreva Kami, [03-08-2025 20:29]
+}
+    </style>
+</head>
+<body>
+    <div class="result-container">
+        <div class="header">
+            <h1>Chronic Kidney Disease</h1>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+        </div>
+        
+        <div class="content">
+            <div class="prediction-label">Prediction:</div>
+            <div class="prediction-result">Great! You DON'T have Chronic Kidney Disease</div>
+            
+            <div class="celebration-image">
+                <div class="celebration-text">IT'S TIME TO PARTYYYYY!</div>
+                <div class="minion-characters">
+                    <div class="minion"></div>
+                    <div class="minion"></div>
+                    <div class="minion"></div>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="btn btn-primary">View Details</button>
+                <button class="btn btn-secondary">Share Results</button>
+            </div>
+            
+            <div class="health-tip">
+                <h3>🎉 Keep Up the Good Work!</h3>
+                <p>Your results show no signs of chronic kidney disease. Continue maintaining a healthy lifestyle with regular exercise, balanced diet, adequate hydration, and routine check-ups to keep your kidneys healthy!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add some interactive celebration effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create floating hearts animation
+            function createHeart() {
+                const heart = document.createElement('div');
+                heart.innerHTML = '💚';
+                heart.style.position = 'fixed';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                heart.style.opacity = Math.random();
+                heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+                heart.style.pointerEvents = 'none';
+                heart.style.animation = 'float-up 4s linear infinite';
+                
+                document.body.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 4000);
+            }
+            
+            // Add CSS for floating hearts
+            const style = document.createElement('style');
+            style.textContent = 
+                @keyframes float-up {
+                    0% { transform: translateY(100vh) rotate(0deg); }
+                    100% { transform: translateY(-10vh) rotate(360deg); }
+                }
+            ;
+            document.head.appendChild(style);
+            
+            // Create hearts periodically
+            setInterval(createHeart, 1500);
+            
+            // Add click effects to buttons
+            document.querySelectorAll('.btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.classList.add('ripple');
+                    
+                    this.appendChild(ripple);
+
+Oreva Kami, [03-08-2025 20:29]
+setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+            
+            // Add ripple effect CSS
+            const rippleStyle = document.createElement('style');
+            rippleStyle.textContent = 
+                .btn {
+                    position: relative;
+                    overflow: hidden;
+                }
+                .ripple {
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.6);
+                    transform: scale(0);
+                    animation: ripple 0.6s linear;
+                    pointer-events: none;
+                }
+                @keyframes ripple {
+                    to {
+                        transform: scale(4);
+                        opacity: 0;
+                    }
+                }
+            ;
+            document.head.appendChild(rippleStyle);
+        });
+    </script>
+
+        <div class="container">
+            <div class="header">
+                <h1>Prediction Result</h1>
+            </div>
+            <div class="content" style="padding: 20px; text-align: center;">
+                <p style="font-size: 1.2em;">{{ prediction_result }}</p>
+            </div>
+        </div>
+</body>
+</html>

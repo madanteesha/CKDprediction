@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<body><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chronic Kidney Disease - Prediction Result</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #e91e63, #ff4081);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .result-container {
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .prediction-label {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .prediction-result {
+            font-size: 20px;
+            color: #e91e63;
+            font-weight: bold;
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #fce4ec;
+            border-radius: 8px;
+            border-left: 4px solid #e91e63;
+        }
+
+        .meme-container {
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .meme-image {
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .meme-image:hover {
+            transform: scale(1.05);
+        }
+
+        .what-text {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-top: 15px;
+            letter-spacing: 2px;
+        }
+
+        .back-button {
+            background: linear-gradient(135deg, #e91e63, #ff4081);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3);
+        }
+
+        .back-button:active {
+            transform: translateY(0);
+        }
+
+        .disclaimer {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff3e0;
+            border-radius: 8px;
+            border-left: 4px solid #ff9800;
+            font-size: 14px;
+            color: #666;
+            text-align: left;
+        }
+
+        .disclaimer strong {
+            color: #e65100;
+        }
+
+        /* Animation for the result */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-container > * {
+            animation: slideIn 0.6s ease-out forwards;
+        }
+
+        .result-container > *:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .result-container > *:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+Oreva Kami, [03-08-2025 20:28]
+.result-container > *:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            Chronic Kidney Disease
+        </div>
+        
+        <div class="result-container">
+            <div class="prediction-label">
+                Prediction:
+            </div>
+            
+            <div class="prediction-result">
+                Oops! You have Chronic Kidney Disease
+            </div>
+            
+            <div class="meme-container">
+                <svg class="meme-image" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Minion-style background -->
+                    <rect width="300" height="200" fill="#4a4a4a" rx="8"/>
+                    
+                    <!-- Minion body -->
+                    <ellipse cx="150" cy="120" rx="60" ry="70" fill="#f9d71c"/>
+                    
+                    <!-- Overalls -->
+                    <rect x="120" y="140" width="60" height="50" fill="#4169e1" rx="5"/>
+                    <rect x="125" y="145" width="10" height="40" fill="#2c5aa0"/>
+                    <rect x="165" y="145" width="10" height="40" fill="#2c5aa0"/>
+                    
+                    <!-- Eyes (shocked expression) -->
+                    <circle cx="130" cy="90" r="20" fill="white"/>
+                    <circle cx="170" cy="90" r="20" fill="white"/>
+                    <circle cx="130" cy="90" r="12" fill="brown"/>
+                    <circle cx="170" cy="90" r="12" fill="brown"/>
+                    <circle cx="130" cy="90" r="6" fill="black"/>
+                    <circle cx="170" cy="90" r="6" fill="black"/>
+                    
+                    <!-- Shocked eyebrows -->
+                    <path d="M 115 75 Q 130 70 145 75" stroke="black" stroke-width="3" fill="none"/>
+                    <path d="M 155 75 Q 170 70 185 75" stroke="black" stroke-width="3" fill="none"/>
+                    
+                    <!-- Mouth (open in shock) -->
+                    <ellipse cx="150" cy="115" rx="8" ry="12" fill="black"/>
+                    
+                    <!-- Hair -->
+                    <path d="M 120 60 Q 150 50 180 60" stroke="black" stroke-width="2" fill="none"/>
+                    <circle cx="135" cy="58" r="2" fill="black"/>
+                    <circle cx="150" cy="55" r="2" fill="black"/>
+                    <circle cx="165" cy="58" r="2" fill="black"/>
+                </svg>
+                
+                <div class="what-text">
+                    WHAT?!!
+                </div>
+            </div>
+            
+            <button class="back-button" onclick="goBack()">
+                Check Another Patient
+            </button>
+            
+            <div class="disclaimer">
+                <strong>Medical Disclaimer:</strong> This is a demonstration tool and should not be used for actual medical diagnosis. Always consult with qualified healthcare professionals for proper medical evaluation and treatment. Machine learning predictions are not a substitute for professional medical advice.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                // If no history, you could redirect to the form page
+                alert('Redirecting to the main form...');
+                // window.location.href = 'ckd-form.html';
+            }
+        }
+
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const memeImage = document.querySelector('.meme-image');
+            const whatText = document.querySelector('.what-text');
+            
+            // Add click effect to the meme
+
+Oreva Kami, [03-08-2025 20:28]
+memeImage.addEventListener('click', function() {
+                whatText.style.transform = 'scale(1.2)';
+                whatText.style.color = '#e91e63';
+                setTimeout(() => {
+                    whatText.style.transform = 'scale(1)';
+                    whatText.style.color = '#333';
+                }, 200);
+            });
+        });
+    </script>
+
+        <div class="container">
+            <div class="header">
+                <h1>Prediction Result</h1>
+            </div>
+            <div class="content" style="padding: 20px; text-align: center;">
+                <p style="font-size: 1.2em;">{{ prediction_result }}</p>
+            </div>
+        </div>
+</body>
+</html>

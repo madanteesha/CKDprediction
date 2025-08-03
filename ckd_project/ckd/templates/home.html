@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CKD Prediction Form</title>
+</head>
+<body>
+    <h2>Enter Patient Details</h2>
+    <form method="post" action="/predict">
+        Red Blood Cells:
+        <select name="red_blood_cells">
+            <option value="normal">Normal</option>
+            <option value="abnormal">Abnormal</option>
+        </select><br><br>
+
+        Pus Cell:
+        <select name="pus_cell">
+            <option value="normal">Normal</option>
+            <option value="abnormal">Abnormal</option>
+        </select><br><br>
+
+        Blood Glucose Random (mg/dl): <input type="text" name="blood_glucose_random"><br><br>
+        Blood Urea (mg/dl): <input type="text" name="blood_urea"><br><br>
+
+        Pedal Edema:
+        <select name="pedal_edema">
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+        </select><br><br>
+
+        Anemia:
+        <select name="anemia">
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+        </select><br><br>
+
+        Diabetes Mellitus:
+        <select name="diabetesmellitus">
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+        </select><br><br>
+
+        Coronary Artery Disease:
+        <select name="coronary_artery_disease">
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+        </select><br><br>
+
+        <input type="submit" value="Predict">
+    </form>
+</body>
+</html>
